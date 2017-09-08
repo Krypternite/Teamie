@@ -1,0 +1,85 @@
+<md-toolbar style="position: fixed">
+
+
+	<div class="md-toolbar-tools ">
+		<span class="md-title">Sort By:</span>
+		<md-button ng-repeat="filter in HMScopeData.filters" ng-click="HMScopeData.sortCards(filter.value)" class="md-button filter" ng-class="{'selected':(HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  )}">
+			<span ng-show="HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  ">
+				<md-icon class="material-icons " ng-show="HMScopeData.sortData.ascending" aria-label="Menu ">keyboard_arrow_up</md-icon>
+				<md-icon class="material-icons " ng-show="!HMScopeData.sortData.ascending" aria-label="Menu ">keyboard_arrow_down</md-icon>
+			</span>
+			<span>{{filter.name}}</span>
+		</md-button>
+		<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button filter">
+			<span>Joining Date</span>
+		</md-button>
+		<md-button ng-click="HMScopeData.clearFilters()" class="md-button filter">
+			<span>Reset Filters</span>
+		</md-button>
+	</div>
+
+
+
+</md-toolbar>
+
+<div ng-if="HMScopeData.loading" layout="row" layout-sm="column" layout-align="space-around" style="margin-top:80px;">
+	<md-progress-circular md-diameter="96"></md-progress-circular>
+</div>
+
+<div ng-if="!HMScopeData.followersList.length && !HMScopeData.loading" style="margin-top:80px;" layout="row" layout-align="center center">
+	<h1>No Followers To Show.</h1>
+</div>
+<ul ng-if=" HMScopeData.followersList.length> 0 && !HMScopeData.loading " class="grid" masonry="true" style="margin-top:80px;">
+	<li ng-repeat="item in HMScopeData.followersList | orderBy: [HMScopeData.sortData.value,'uid'] | joinDateFilter :HMScopeData.dateFilter.startDate:HMScopeData.dateFilter.endDate">
+		<div class="twubric-card">
+			<div class="twubric-card-header">
+				<img class="avatar" ng-src="{{item.image}}" />
+				<div class="header-text">
+					<div>{{item.fullname}}</div>
+					<div class="subdued">@{{item.username}}</div>
+				</div>
+			</div>
+			<div class="twubric-card-content">
+				<div style="padding:10px 10px; font-weight: bolder; border-radius: 20px;; background: lightgrey">
+					<span>Total Score </span>
+					<span style="float:right">3</span>
+				</div>
+				<hr>
+				<table style="width: 100%; padding-top:10px">
+					<tr>
+						<td width="50%"><span>Chirpiness</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"><span style="float:right">{{item.twubric.chirpiness}}</span></td>
+					</tr>
+					<tr>
+						<td width="50%"> <span>Friends</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"><span style="float:right">{{item.twubric.friends}}</span></td>
+					</tr>
+					<tr>
+						<td width="50%"> <span>Influence</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"><span style="float:right">{{item.twubric.influence}}</span></td>
+					</tr>
+				</table>
+
+
+			</div>
+			<hr>
+			<div class="twubric-card-footer">
+				<span>
+					<md-icon class="material-icons">perm_contact_calendar</md-icon>
+					<span>{{item.join_date*1000 | date:'MMM dd,yyyy'}}</span>
+				</span>
+				<span style="float:right">
+					<a href="#" ng-click="HMScopeData.removerUser(item.uid)" > 
+						<md-icon class="material-icons" aria-label="Delete">delete</md-icon>
+					</a>
+				</span>
+			</div>
+		</div>
+
+
+
+	</li>
+</ul>

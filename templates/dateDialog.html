@@ -1,0 +1,37 @@
+<md-dialog aria-label="Select Date Range">
+	<form ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h3 class="md-title">Select Date Range</h3>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon class="material-icon">close</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content layout="column">
+			<div class="md-dialog-content">
+				<div flex>
+					<h4>Select Start Date</h4>
+					<md-datepicker ng-model="dateFilter.startDate" md-placeholder="Enter date"></md-datepicker>
+				</div>
+
+				<div flex>
+					<h4>Select End Date</h4>
+					<md-datepicker ng-model="dateFilter.endDate" md-placeholder="Enter date"></md-datepicker>
+				</div>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+
+			<md-button ng-class="md-primary" ng-click="answer('not useful')">
+				Submit
+			</md-button>
+			<md-button ng-click="answer('useful')">
+				Cancel
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>
