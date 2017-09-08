@@ -1,0 +1,117 @@
+
+		<!--<md-card class="twubric-cards ">
+	<md-card-header ng-click="HMScopeData.removerUser($index)" layout="row" layout-align="center start">
+		<md-card-avatar>
+			<img class="md-user-avatar" ng-src="{{item.image}}" />
+		</md-card-avatar>
+		<md-card-header-text>
+			<span class="md-title">{{item.fullname}}</span>
+			<span class="md-subhead">@{{item.username}}</span>
+		</md-card-header-text>
+
+	</md-card-header>-->
+		<!--
+<md-card-actions style="padding:10px 10px; font-weight: bolder; border-radius: 20px;; background: lightgrey" layout="row" layout-align="center end">
+	<div flex>Total Score</div>
+	<div>{{item.twubric.total}}</div>
+</md-card-actions>
+-->
+		<!--		<md-divider></md-divider>-->
+		<!--
+<md-card-content>
+	<table>
+		<tr>
+			<td width="50%"><span>Chirpiness</span></td>
+			<td width="20%"> <span class="leader"></span></td>
+			<td width="40%"><span style="float:right">{{item.twubric.chirpiness}}</span></td>
+		</tr>
+		<tr>
+			<td width="50%"> <span>Friends</span></td>
+			<td width="20%"> <span class="leader"></span></td>
+			<td width="40%"><span style="float:right">{{item.twubric.friends}}</span></td>
+		</tr>
+		<tr>
+			<td width="50%"> <span>Influence</span></td>
+			<td width="20%"> <span class="leader"></span></td>
+			<td width="40%"><span style="float:right">{{item.twubric.influence}}</span></td>
+		</tr>
+	</table>
+
+
+</md-card-content>
+-->
+		<!--
+<md-divider></md-divider>
+<md-card-actions layout="row" layout-align="end center">
+	<div flex=100 class="md-icon-button" aria-label="Share">
+		<md-icon class="material-icons">perm_contact_calendar</md-icon>
+		<span>{{item.join_date*1000 | date:'MMM dd,yyyy'}}</span>
+	</div>
+
+	<md-button class="md-icon-button" ng-click="HMScopeData.removerUser($index)" aria-label="Share">
+		<md-icon class="material-icons" aria-label="Delete">delete</md-icon>
+	</md-button>
+</md-card-actions>
+
+		</md-card> -->
+		
+		
+		
+		<!--
+				<div>
+					<span>Chirpiness</span>
+					<span style="float:right">{{item.twubric.chirpiness}}</span>
+				</div>
+				<div>
+					<span>Friends</span>
+					<span style="float:right">{{item.twubric.friends}}</span>
+				</div>
+				<div>
+					<span>Influence</span>
+					<span style="float:right">{{item.twubric.influence}}</span>
+				</div>
+-->
+
+
+
+<!--<md-button ng-click="order = 'twubric.total'" class="md-button ">
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_up</md-icon>
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_down</md-icon>
+	<span>Total Score</span>
+</md-button>
+
+<md-button ng-click="order = 'twubric.chirpiness'" class="md-button ">
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_up</md-icon>
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_down</md-icon>
+	<span>Chirpiness</span>
+</md-button>
+<md-button ng-click="order = 'twubric.friends'" class="md-button ">
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_up</md-icon>
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_down</md-icon>
+	<span>Friends</span>
+</md-button>
+<md-button ng-click="order = 'twubric.influence'" class="md-button ">
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_up</md-icon>
+	<md-icon class="material-icons " aria-label="Menu ">keyboard_arrow_down</md-icon>
+	<span>Influence</span>
+</md-button>
+<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button ">
+	<span>Joining Date</span>
+</md-button>-->
+
+
+
+		<!--
+<div ng-click="HMScopeData.removerUser($index)" class="twubric-cards">
+	<div class="card-header">
+		<img class="avatar" ng-src="{{item.image}}" />
+		<span class="md-title">{{item.fullname}}</span>
+		<span class="md-subhead">@{{item.username}}</span>
+	</div>
+</div>-->
+
+
+<!--<a href="#" ng-click="order = 'twubric.total'">Order by Total Score</a>
+<a href="#" ng-click="order = 'twubric.chirpiness'">Order by Chirpiness</a>
+<a href="#" ng-click="order = 'twubric.friends'">Order by Friends</a>
+<a href="#" ng-click="order = 'twubric.influence'">Order by Influence</a>-->

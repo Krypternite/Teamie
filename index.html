@@ -1,0 +1,104 @@
+<html lang="en">
+
+<head>
+	<title>Teamie</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="icon" type="image/png" href="img/favicon.ico" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+
+
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js"></script>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+
+	<script src="js/app.js" type="text/javascript"></script>
+	<script src="js/services.js" type="text/javascript"></script>
+	<script src="js/controller.js" type="text/javascript"></script>
+
+
+</head>
+
+
+<body ng-app="teamieApp" ng-cloak layout="column">
+
+	<md-toolbar ng-controller="sidemenuController as ctrl" style="background: #424242">
+
+
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" ng-click="openLeftMenu() ">
+				<md-icon class="material-icons" aria-label="Menu">menu</md-icon>
+			</md-button>
+			<h2 class="md-flex" hide-sm hide-xs flex><img src=" img/logo.webp " width="120 "></h2>
+			<h1 flex class="app-title">
+				<span>:twubric</span>
+			</h1>
+			<md-button class="md-button">
+				<md-icon class="material-icons" aria-label="Menu">settings</md-icon>
+				Settings
+			</md-button>
+		</div>
+
+
+	</md-toolbar>
+
+	<div id="sideNavContainer " layout="row " flex class="container " ng-cloak>
+		<md-sidenav flex layout="column " md-is-locked-open="$mdMedia( 'min-width: 1000px') " md-component-id="left " class="md-sidenav-left md-whiteframe-1dp ">
+
+			<md-list style="margin-top:-20px; " layout="column " flex>
+				<section class="zig-cont " layout-align="start center ">
+					<md-list-item layout-align=" center ">
+						<img src="http://farm8.staticflickr.com/7382/8907351301_bd7460cffb.jpg " class="avatar-profile md-whiteframe-4dp ">
+
+					</md-list-item>
+					<md-list-item layout-align="center " style="margin-top:-20px; ">
+						<span class="md-title ">Samad Ali Sadiq</span>
+					</md-list-item>
+				</section>
+				<!--</md-list>
+<md-list flex layout="column " layout-align="center center ">-->
+				<section flex class="dotted ">
+					<md-list-item layout="row " layout-align="center end ">
+						<span flex="20 " style="text-align:left ">Following</span>
+						<span>20</span>
+					</md-list-item>
+					<md-list-item layout="row " layout-align="center end ">
+						<span flex="20 " style="text-align:left ">Followers</span>
+						<span>50</span>
+					</md-list-item>
+					<md-list-item layout="row " layout-align="center end ">
+						<span flex="20 " style="text-align:left ">Tweets</span>
+						<span>500</span>
+					</md-list-item>
+					<md-list-item layout="row " layout-align="center end ">
+						<span flex="20 " style="text-align:left ">Retweets</span>
+						<span>200</span>
+					</md-list-item>
+				</section>
+				<section layout="column ">
+					<md-list-item layout-align="center end ">&copy; Created By : Samad Ali Sadiq</md-list-item>
+				</section>
+
+			</md-list>
+
+
+		</md-sidenav>
+
+		<md-content flex ui-view>
+		</md-content>
+
+
+	</div>
+
+</body>
+
+</html>
