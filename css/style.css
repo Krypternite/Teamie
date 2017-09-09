@@ -1,74 +1,72 @@
-html,
-body {
-	font-size: 14px;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
-}
-
-.avatar {
-	position: relative;
-	width: 128px;
-	height: 128px;
-	border: 1px solid #ddd;
-	border-radius: 50%;
-	display: inline-block;
-	overflow: hidden;
-	margin: 0px;
-	vertical-align: middle;
-	zoom: 0.70;
-	transform: translateZ(0);
-	-webkit-transform: scale(0.70);
-	-moz-transform: scale(0.70);
-}
-
-.zig-cont {
-	position: relative;
-	padding: 8px 8px 32px 8px;
-}
-
-.zig-cont:after {
-	background: linear-gradient(-45deg, rgba(70, 82, 95, 0) 20px, rgba(134, 52, 52, 0.37) 0), linear-gradient(45deg, rgba(216, 99, 99, 0) 20px, rgba(199, 74, 74, 0.4) 0);
-	background-position: left-bottom;
-	background-repeat: repeat-x;
-	background-size: 32px 32px;
-	content: " ";
-	display: block;
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	margin: 0 auto;
-	padding: 0px;
-	width: 80%;
-	height: 32px;
-}
-
-.avatar-profile {
-	position: relative;
-	width: 300px;
-	height: 300px;
-	border: 10px solid #ddd;
-	border-radius: 50%;
-	display: inline-block;
-	overflow: hidden;
-	margin: 0px;
-	vertical-align: middle;
-	zoom: 0.70;
-	transform: translateZ(0);
-	-webkit-transform: scale(0.70);
-	-moz-transform: scale(0.70);
-	box-shadow: 1px 1px 500px aliceblue;
-}
-
-md-sidenav {
-	background: #293644;
-	color: #c9d1cf;
-	font-weight: 600;
-}
-
-
-/*
+	html,
+	body {
+		font-size: 12px;
+		height: 100%;
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.avatar {
+		position: relative;
+		width: 128px;
+		height: 128px;
+		border: 1px solid #ddd;
+		border-radius: 50%;
+		display: inline-block;
+		overflow: hidden;
+		margin: 0px;
+		vertical-align: middle;
+		zoom: 0.70;
+		transform: translateZ(0);
+		-webkit-transform: scale(0.70);
+		-moz-transform: scale(0.70);
+	}
+	
+	.zig-cont {
+		position: relative;
+		padding: 8px 8px 32px 8px;
+	}
+	
+	.zig-cont:after {
+		background: linear-gradient(-45deg, rgba(70, 82, 95, 0) 20px, rgba(134, 52, 52, 0.37) 0), linear-gradient(45deg, rgba(216, 99, 99, 0) 20px, rgba(199, 74, 74, 0.4) 0);
+		background-position: left-bottom;
+		background-repeat: repeat-x;
+		background-size: 32px 32px;
+		content: " ";
+		display: block;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		margin: 0 auto;
+		padding: 0px;
+		width: 80%;
+		height: 32px;
+	}
+	
+	.avatar-profile {
+		position: relative;
+		width: 300px;
+		height: 300px;
+		border: 10px solid #ddd;
+		border-radius: 50%;
+		display: inline-block;
+		overflow: hidden;
+		margin: 0px;
+		vertical-align: middle;
+		zoom: 0.70;
+		transform: translateZ(0);
+		-webkit-transform: scale(0.70);
+		-moz-transform: scale(0.70);
+		box-shadow: 1px 1px 500px aliceblue;
+	}
+	
+	md-sidenav {
+		background: #293644;
+		color: #c9d1cf;
+		font-weight: 600;
+	}
+	/*
 .dotted {
 border-bottom: 2px dotted #ccc;
 line-height: 2em;
@@ -76,152 +74,172 @@ clear: both;
 margin: 0.5em 0 0 0;
 }
 */
-
-.dotted span+span:before {
-	text-align: center;
-	padding: 0 10px;
-	direction: rtl;
-	font-size: 13px;
-	overflow: hidden;
-	font-weight: lighter;
-	font-stretch: extra-expanded;
-	content: ".................................................";
-	white-space: nowrap;
-}
-
-.dotted-score span+span:before {
-	text-align: center;
-	padding: 0 10px;
-	direction: rtl;
-	font-size: 13px;
-	overflow: hidden;
-	font-weight: lighter;
-	font-stretch: extra-expanded;
-	content: ".........................";
-	white-space: nowrap;
-}
-
-.leader:before {
-	text-align: center;
-	overflow: hidden;
-	content: "....................";
-	white-space: nowrap;
-}
-
-td>span {
-	font-size: 14px;
-}
-
-td+td {
-	padding: 4px 0;
-}
-
-.grid {
-	/*    border: solid 1px #ccc padding: 10px 10px 0 0;*/
-}
-
-.grid li {
-	display: inline-block;
-	height: 300px;
-	width: 240px;
-	/*    border: solid 1px #ccc;*/
-	margin: 0 0 10px 10px;
-	/*    background: #eee;*/
-}
-
-
-/**** Transitions ****/
-
-.masonry,
-.masonry li {
-	/* apply before masonry add class */
-	position: absolute;
-	/* important to add it before enter animation start */
-	-webkit-transition-duration: .5s;
-}
-
-md-card.twubric-cards {
-	background: rgba(143, 209, 229, 0.44)
-}
-
-.app-title {
-	font-size: 41px !important;
-}
-
-.app-title span {
-	text-shadow: 1px -1px 20px rgba(255, 255, 255, 0.44);
-	font-family: monospace;
-	color: rgb(250, 250, 250);
-}
-
-.md-datepicker-input-mask {
-	height: auto;
-	overflow: hidden;
-}
-
-.filter.md-button {
-	font-size: 12px;
-	line-height: 65px;
-	width: 160px;
-}
-
-.filter.selected {
-	background: rgba(41, 54, 68, 0.65);
-	font-weight: bold;
-}
-
-
-/***************CUSTOM CARD****************************/
-
-.twubric-card {
-	padding: 5px;
-	background: rgba(143, 209, 229, 0.44);
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
-}
-
-.twubric-card-header {
-	background: transparent;
+	
+	.dotted span+span:before {
+		text-align: center;
+		padding: 0 10px;
+		direction: rtl;
+		font-size: 13px;
+		overflow: hidden;
+		font-weight: lighter;
+		font-stretch: extra-expanded;
+		content: "................................";
+		white-space: nowrap;
+	}
+	
+	.dotted-score span+span:before {
+		text-align: center;
+		padding: 0 10px;
+		direction: rtl;
+		font-size: 13px;
+		overflow: hidden;
+		font-weight: lighter;
+		font-stretch: extra-expanded;
+		content: ".........................";
+		white-space: nowrap;
+	}
+	
+	.leader:before {
+		text-align: center;
+		overflow: hidden;
+		content: "....................";
+		white-space: nowrap;
+	}
+	
+	td>span {
+		font-size: 14px;
+	}
+	
+	td+td {
+		padding: 4px 0;
+	}
+	
+	.grid {
+		/*    border: solid 1px #ccc padding: 10px 10px 0 0;*/
+	}
+	
+	.grid li {
+		display: inline-block;
+		height: 300px;
+		width: 215px;
+		/*    border: solid 1px #ccc;*/
+		margin: 0 5px;
+		/*    background: #eee;*/
+	}
+	/**** Transitions ****/
+	
+	.masonry,
+	.masonry li {
+		/* apply before masonry add class */
+		position: absolute;
+		/* important to add it before enter animation start */
+		-webkit-transition-duration: .5s;
+	}
+	
+	md-card.twubric-cards {
+		background: rgba(143, 209, 229, 0.44)
+	}
+	
+	.app-title {
+		font-size: 41px !important;
+	}
+	
+	.app-title span {
+		text-shadow: 1px -1px 20px rgba(255, 255, 255, 0.44);
+		font-family: monospace;
+		color: rgb(250, 250, 250);
+	}
+	
+	.md-datepicker-input-mask {
+		height: auto;
+		overflow: hidden;
+	}
+	
+	.filter.md-button {
+		font-size: 11px;
+		width: auto;
+		padding: 0px 10px;
+		text-transform: initial;
+	}
+	
+	.date-submit.md-button {
+		background: green !important;
+		color: white !important;
+	}
+	
+	.date-submit.md-button[disabled] {
+		background: darkgrey !important;
+		color: grey !important;
+	}
+	
+	.filter.selected {
+		background: rgba(41, 54, 68, 0.65);
+		font-weight: bold;
+	}
+	/***************CUSTOM CARD****************************/
+	
+	.twubric-card {
+		padding: 0 5px;
+		background: rgba(143, 209, 229, 0.44);
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+	}
+	
+	.twubric-card-header {
+		background: transparent;
+		/*
 	padding: 2px;
 	display: box;
-}
-
-.twubric-card-content {
-	padding: 10px;
-}
-
-.twubric-card-content>div+div {
-	margin: 5px 0
-}
-
-.avatar {
-	position: relative;
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
-	zoom: 0.7;
-}
-
-.header-text {
-	display: inline-block;
-	margin-top: 5px;
-	padding-left: 10px;
-	line-height: 10px;
-	vertical-align: middle;
-}
-
-.subdued {
-	color: rgba(0, 0, 0, 0.54);
-	font-size: 16px;
-	font-weight: 400;
-	letter-spacing: .010em;
-	line-height: 24px;
-}
-
-.twubric-card-footer {
-	background: transparent;
-	padding: 2px;
-	display: box;
-}
-
-
-/*****************************************/
+*/
+	}
+	
+	.twubric-card-content {
+		padding: 10px;
+	}
+	
+	.twubric-card-content>div+div {
+		margin: 5px 0
+	}
+	
+	.avatar {
+		position: relative;
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		zoom: 0.7;
+	}
+	
+	.header-text {
+		display: inline-block;
+		margin-top: 5px;
+		line-height: 10px;
+		vertical-align: middle;
+	}
+	
+	.subdued {
+		color: rgba(0, 0, 0, 0.54);
+		font-size: 12px;
+		font-weight: 400;
+		letter-spacing: .010em;
+		line-height: 24px;
+	}
+	
+	.twubric-card-footer {
+		background: transparent;
+		padding: 2px;
+		display: box;
+	}
+	/*****************************************/
+	
+	.lock-size {
+		min-width: 300px;
+		min-height: 300px;
+		width: 300px;
+		height: 300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.md-toast-content {
+		background-color: #39d888 !important;
+		color: rgb(250, 250, 250);
+	}
