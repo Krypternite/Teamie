@@ -58,6 +58,6 @@
 	</li>
 </ul>
 
-<div ng-show="filteredList.length === 0 && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
+<div ng-show="filteredList.length === 0 && HMScopeData.followerList.length > 0 && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
 	<h1>No Matching Results for this criteria.</h1>
 </div>
