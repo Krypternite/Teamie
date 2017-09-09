@@ -1,19 +1,72 @@
 angular.module('teamieApp.controllers', [])
-	.controller('sidemenuController', function ($scope, $mdSidenav) {
+	.controller('sidemenuController', function ($scope, $mdSidenav, userFactory) {
+
+		var sideMenuConfig = {};
+		$scope.sideMenuScope = {
+			dateFilter: {
+				startDate: '',
+				endDate: '',
+				state: false
+			},
+			filters: userFactory.getFilters(),
+			sortData: {
+				value: '',
+				ascending: true
+			},
+			sortCards: function (value) {
+				if (this.sortData.value === value) {
+					this.sortData.value = "-" + value;
+					this.sortData.ascending = false;
+				} else {
+					this.sortData.ascending = true;
+					this.sortData.value = value;
+				}
+			},
+			clearDateFilter: function () {
+				this.dateFilter = {
+					startDate: '',
+					endDate: '',
+					state: false
+				};
+			},
+			clearFilters: function () {
+
+				$timeout(function () {
+
+					$scope.HMScopeData.sortData = {
+						value: '',
+						ascending: true
+					};
+					$scope.HMScopeData.clearDateFilter();
+					$scope.HMScopeData.loading = false;
+				}, 500);
+
+
+			},
+
+		};
+
+
 		$scope.openLeftMenu = function () {
 			$mdSidenav('left').toggle();
 		};
 	})
-	.controller('homeController', function ($scope, userFactory, $timeout, $mdDialog) {
+	.controller('homeController', function ($scope, userFactory, $timeout, $mdDialog, $mdBottomSheet, $mdSidenav, $mdToast) {
 		var HMConfigData = {
 			getFollowers: function () {
 				$scope.HMScopeData.followersList = angular.copy(userFactory.getUsers());
 			},
-			DialogController: function ($scope, $mdDialog) {
+			DialogController: function ($scope, $mdDialog, dateFilter) {
 				$scope.dateFilter = {
 					startDate: '',
-					endDate: ''
+					endDate: '',
+					validation: false,
+					validationMessage: ''
 				};
+				if (dateFilter.state) {
+					$scope.dateFilter.endDate = angular.copy(dateFilter.endDate);
+					$scope.dateFilter.startDate = angular.copy(dateFilter.startDate);
+				}
 				$scope.hide = function () {
 					$mdDialog.hide();
 				};
@@ -22,8 +75,49 @@ angular.module('teamieApp.controllers', [])
 					$mdDialog.cancel();
 				};
 
+				$scope.checkDate = function () {
+					if ($scope.dateFilter.startDate > $scope.dateFilter.endDate) {
+						$scope.dateFilter.validation = true;
+						$scope.dateFilter.validationMessage = "Start date must be less than end date";
+
+
+
+					} else {
+						$scope.dateFilter.validation = false;
+						$scope.dateFilter.validationMessage = "";
+
+
+					}
+
+				}
+
 				$scope.answer = function (answer) {
-					$mdDialog.hide($scope.dateFilter);
+					if ($scope.dateFilter.validation === false)
+						$mdDialog.hide($scope.dateFilter);
+				};
+			},
+			BottomSheetController: function ($scope, $mdBottomSheet) {
+				$scope.items = [
+					{
+						icon: 'accessible',
+						class: 'md-primary md-hue-2'
+			},
+					{
+						icon: 'face',
+						class: 'md-warn md-hue-2'
+			},
+					{
+						icon: 'favorite',
+						class: 'md-primary'
+			},
+					{
+						icon: 'delete',
+						class: 'md-primary'
+			}
+          ];
+				$scope.listItemClick = function ($index) {
+					var clickedItem = $scope.items[$index];
+					$mdBottomSheet.hide(clickedItem);
 				};
 			}
 		};
@@ -38,38 +132,47 @@ angular.module('teamieApp.controllers', [])
 			},
 			dateFilter: {
 				startDate: '',
-				endDate: ''
+				endDate: '',
+				state: false
 			},
-			sortCards: function (value) {
-				if (this.sortData.value === value) {
-					this.sortData.value = "-" + value;
+			sortCards: function (filter) {
+				if (this.sortData.value === filter.value) {
+					this.sortData.value = "-" + filter.value;
 					this.sortData.ascending = false;
 				} else {
 					this.sortData.ascending = true;
-					this.sortData.value = value;
+					this.sortData.value = filter.value;
 				}
+
+				$mdToast.show(
+					$mdToast.simple()
+					.textContent("Filter set as  : " + filter.name + " " + ($scope.HMScopeData.sortData.ascending === true ? 'Ascending' : 'Descending')).position('top right').toastClass('md-primary').capsule('true')
+					.hideDelay(2000)
+				);
+
 			},
-			filters: [{
-					'name': 'Twubric Score',
-					'value': 'twubric.total'
-			},
-				{
-					'name': 'Friends',
-					'value': 'twubric.friends'
-			},
-				{
-					'name': 'Influence',
-					'value': 'twubric.influence'
-			},
-				{
-					'name': 'Chirpiness',
-					'value': 'twubric.chirpiness'
-			}],
-			clearFilters: function () {
-				this.sortData = {
-					value: '',
-					ascending: true
+			filters: userFactory.getFilters(),
+			clearDateFilter: function () {
+				this.dateFilter = {
+					startDate: '',
+					endDate: '',
+					state: false
 				};
+			},
+			clearFilters: function () {
+
+				this.loading = true;
+				$timeout(function () {
+
+					$scope.HMScopeData.sortData = {
+						value: '',
+						ascending: true
+					};
+					$scope.HMScopeData.clearDateFilter();
+					$scope.HMScopeData.loading = false;
+				}, 500);
+
+
 			},
 			followersList: [],
 			showDateSelector: function (ev) {
@@ -81,7 +184,13 @@ angular.module('teamieApp.controllers', [])
 						parent: angular.element(document.body),
 						targetEvent: ev,
 						clickOutsideToClose: false,
-						fullscreen: true // Only for -xs, -sm breakpoints.
+						fullscreen: true,
+						resolve: {
+							dateFilter: function () {
+								return $scope.HMScopeData.dateFilter
+							}
+						} // Only for -xs, -sm breakpoints.,
+
 					})
 					.then(function (dateFilter) {
 						//						scope.HMScopeData.loading = true;
@@ -96,8 +205,23 @@ angular.module('teamieApp.controllers', [])
 									newFilteredUsers.push(users[i]);
 								}
 							}
+							
+							
 */
+
 							$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
+							$scope.HMScopeData.dateFilter.state = true;
+							$scope.HMScopeData.sortData.value = 'twubric.join_date';
+							$scope.HMScopeData.sortData.ascending = 'true';
+							/*$scope.HMScopeData.loading = true;
+							$timeout(function () {
+								$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
+								$scope.HMScopeData.dateFilter.state = true;
+								$scope.HMScopeData.sortData.value = 'twubric.join_date';
+								$scope.HMScopeData.sortData.ascending = 'true';
+								$scope.HMScopeData.loading = false;
+							}, 200);*/
+
 
 						}
 					}, function () {
@@ -122,6 +246,9 @@ angular.module('teamieApp.controllers', [])
 				this.followersList = this.followersList.filter(function (obj) {
 					return obj.uid !== uid;
 				});
+			},
+			toggleRightMenu: function () {
+				$mdSidenav('right').toggle();
 			}
 
 
@@ -133,191 +260,19 @@ angular.module('teamieApp.controllers', [])
 
 
 
+
+		$scope.showListBottomSheet = function ($event) {
+			$mdBottomSheet.show({
+				templateUrl: 'templates/bottomSheet.html',
+				controller: HMConfigData.BottomSheetController,
+				targetEvent: $event
+			}).then(function (clickedItem) {
+				//$scope.alert = clickedItem.name + ' clicked!';
+			});
+		};
+
+		$scope.isOpen = false;
+		$scope.tooltipVisible = $scope.isOpen;
 	})
-	.controller('MainCtrl', function ($scope, $http, $timeout) {
-		$scope.items = [];
-		$timeout(function () {
-			$scope.items = angular.copy(
-                    [{
-						"id": 0,
-						"picture": "http://placehold.it/32x32",
-						"age": 31,
-						"name": "Mathews Goff"
-                        },
-					{
-						"id": 1,
-						"picture": "http://placehold.it/32x32",
-						"age": 36,
-						"name": "Collins Alston"
-                        },
-					{
-						"id": 2,
-						"picture": "http://placehold.it/32x32",
-						"age": 27,
-						"name": "Jasmine Rollins"
-                        },
-					{
-						"id": 3,
-						"picture": "http://placehold.it/32x32",
-						"age": 32,
-						"name": "Julie Jefferson"
-                        },
-					{
-						"id": 4,
-						"picture": "http://placehold.it/32x32",
-						"age": 23,
-						"name": "Wilder King"
-                        },
-					{
-						"id": 5,
-						"picture": "http://placehold.it/32x32",
-						"age": 23,
-						"name": "Stanley Moore"
-                        },
-					{
-						"id": 6,
-						"picture": "http://placehold.it/32x32",
-						"age": 36,
-						"name": "Reynolds Bishop"
-                        },
-					{
-						"id": 7,
-						"picture": "http://placehold.it/32x32",
-						"age": 26,
-						"name": "Bryant Flowers"
-                        },
-					{
-						"id": 8,
-						"picture": "http://placehold.it/32x32",
-						"age": 38,
-						"name": "Jenifer Martinez"
-                        },
-					{
-						"id": 9,
-						"picture": "http://placehold.it/32x32",
-						"age": 40,
-						"name": "Mcguire Pittman"
-                        },
-					{
-						"id": 10,
-						"picture": "http://placehold.it/32x32",
-						"age": 34,
-						"name": "Valdez Hyde"
-                        },
-					{
-						"id": 11,
-						"picture": "http://placehold.it/32x32",
-						"age": 34,
-						"name": "Marla Mayo"
-                        },
-					{
-						"id": 12,
-						"picture": "http://placehold.it/32x32",
-						"age": 30,
-						"name": "Brown Ortega"
-                        },
-					{
-						"id": 13,
-						"picture": "http://placehold.it/32x32",
-						"age": 32,
-						"name": "Jeannette William"
-                        },
-					{
-						"id": 14,
-						"picture": "http://placehold.it/32x32",
-						"age": 30,
-						"name": "Bridges Ashley"
-                        },
-					{
-						"id": 15,
-						"picture": "http://placehold.it/32x32",
-						"age": 33,
-						"name": "Latasha Hewitt"
-                        },
-					{
-						"id": 16,
-						"picture": "http://placehold.it/32x32",
-						"age": 35,
-						"name": "Alma Sawyer"
-                        },
-					{
-						"id": 17,
-						"picture": "http://placehold.it/32x32",
-						"age": 21,
-						"name": "Liz Mcbride"
-                        },
-					{
-						"id": 18,
-						"picture": "http://placehold.it/32x32",
-						"age": 26,
-						"name": "Mcintosh Chandler"
-                        },
-					{
-						"id": 19,
-						"picture": "http://placehold.it/32x32",
-						"age": 20,
-						"name": "Alford Hartman"
-                        },
-					{
-						"id": 20,
-						"picture": "http://placehold.it/32x32",
-						"age": 29,
-						"name": "Tiffany Green"
-                        },
-					{
-						"id": 21,
-						"picture": "http://placehold.it/32x32",
-						"age": 38,
-						"name": "Stafford Riggs"
-                        },
-					{
-						"id": 22,
-						"picture": "http://placehold.it/32x32",
-						"age": 40,
-						"name": "Elinor Chambers"
-                        },
-					{
-						"id": 23,
-						"picture": "http://placehold.it/32x32",
-						"age": 27,
-						"name": "Carly Howard"
-                        },
-					{
-						"id": 24,
-						"picture": "http://placehold.it/32x32",
-						"age": 27,
-						"name": "Rosalind Sanchez"
-                        },
-					{
-						"id": 25,
-						"picture": "http://placehold.it/32x32",
-						"age": 28,
-						"name": "Jaclyn Shelton"
-                        },
-					{
-						"id": 26,
-						"picture": "http://placehold.it/32x32",
-						"age": 25,
-						"name": "Hughes Phelps"
-                        },
-					{
-						"id": 27,
-						"picture": "http://placehold.it/32x32",
-						"age": 36,
-						"name": "Rosetta Barrett"
-                        },
-					{
-						"id": 28,
-						"picture": "http://placehold.it/32x32",
-						"age": 29,
-						"name": "Jarvis Wong"
-                        },
-					{
-						"id": 29,
-						"picture": "http://placehold.it/32x32",
-						"age": 23,
-						"name": "Kerri Pennington"
-                        }
-                    ]);
-		}, 200)
-	});
+
+	.controller('RightMenuController', function () {})
