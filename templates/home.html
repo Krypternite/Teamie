@@ -1,9 +1,9 @@
-<md-toolbar style="position: fixed">
+<md-toolbar style="position: fixed" layout="row">
 
 
-	<div class="md-toolbar-tools ">
-		<span class="md-title">Sort By:</span>
-		<md-button ng-repeat="filter in HMScopeData.filters" ng-click="HMScopeData.sortCards(filter.value)" class="md-button filter" ng-class="{'selected':(HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  )}">
+	<div class="md-toolbar-tools" style="position: relative" hide-sm hide-xs>
+		<span class="md-caption">Sort By:</span>
+		<md-button ng-repeat="filter in HMScopeData.filters" ng-click="HMScopeData.sortCards(filter)" class="md-button filter" ng-class="{'selected':(HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  )}">
 			<span ng-show="HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  ">
 				<md-icon class="material-icons " ng-show="HMScopeData.sortData.ascending" aria-label="Menu ">keyboard_arrow_up</md-icon>
 				<md-icon class="material-icons " ng-show="!HMScopeData.sortData.ascending" aria-label="Menu ">keyboard_arrow_down</md-icon>
@@ -13,23 +13,46 @@
 		<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button filter">
 			<span>Joining Date</span>
 		</md-button>
+		<!--</div>
+<div class="md-toolbar-tools" style="position: relative">-->
+		<md-button ng-click="HMScopeData.clearDateFilter()" ng-if="HMScopeData.dateFilter.state" class="md-button filter" style="float:right">
+
+			<span>Clear Date</span>
+			<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+		</md-button>
 		<md-button ng-click="HMScopeData.clearFilters()" class="md-button filter">
 			<span>Reset Filters</span>
+			<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
 		</md-button>
 	</div>
 
+	<div class="md-toolbar-tools" style="position: relative" hide-gt-sm flex>
+		<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button filter" flex>
+			<span>Joining Date</span>
+		</md-button>
+		<!--</div>
+<div class="md-toolbar-tools" style="position: relative">-->
+		<md-button ng-click="HMScopeData.clearDateFilter()" ng-if="HMScopeData.dateFilter.state" class="md-button filter" flex>
 
+			<span>Clear Date</span>
+			<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+		</md-button>
+		<md-button ng-click="HMScopeData.clearFilters()" class="md-button filter" flex>
+			<span>Reset Filters</span>
+			<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+		</md-button>
+	</div>
 
 </md-toolbar>
 
-<div ng-if="HMScopeData.loading" layout="row" layout-sm="column" layout-align="space-around" style="margin-top:80px;">
-	<md-progress-circular md-diameter="96"></md-progress-circular>
+<div ng-show="HMScopeData.loading" layout="row" layout-sm="column" layout-align="space-around" style="margin-top:80px;">
+	<md-progress-circular></md-progress-circular>
 </div>
 
-<div ng-if="!HMScopeData.followersList.length && !HMScopeData.loading" style="margin-top:80px;" layout="row" layout-align="center center">
+<div ng-show="!HMScopeData.followersList.length && !HMScopeData.loading" style="margin-top:80px;" layout="row" layout-align="center center">
 	<h1>No Followers To Show.</h1>
 </div>
-<ul ng-if=" HMScopeData.followersList.length> 0 && !HMScopeData.loading " class="grid" masonry="true" style="margin-top:80px;">
+<ul ng-show=" HMScopeData.followersList.length > 0 &&!HMScopeData.loading " class="grid" masonry="true" style="margin-top:80px;" flex>
 	<li ng-repeat="item in HMScopeData.followersList | orderBy: [HMScopeData.sortData.value,'uid'] | joinDateFilter :HMScopeData.dateFilter.startDate:HMScopeData.dateFilter.endDate">
 		<div class="twubric-card">
 			<div class="twubric-card-header">
@@ -42,7 +65,7 @@
 			<div class="twubric-card-content">
 				<div style="padding:10px 10px; font-weight: bolder; border-radius: 20px;; background: lightgrey">
 					<span>Total Score </span>
-					<span style="float:right">3</span>
+					<span style="float:right">{{item.twubric.total}}</span>
 				</div>
 				<hr>
 				<table style="width: 100%; padding-top:10px">
@@ -83,3 +106,24 @@
 
 	</li>
 </ul>
+
+
+<div hide-gt-sm class="lock-size" layout="row" layout-align="center center" ng-cloak>
+	<md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale md-fab-bottom-right " style="position: fixed">
+		<md-fab-trigger>
+			<md-button aria-label="menu" class="md-fab md-primary" style="font-size:10px">
+				Filters
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+			<div ng-repeat="filter in HMScopeData.filters">
+				<md-button aria-label="{{filter.name}}" class="md-fab md-raised md-mini" ng-click="HMScopeData.sortCards(filter)">
+					<md-tooltip md-direction="left" md-visible="isOpen" md-autohide="false" style="padding: 4px; margin: 0 -11px;">
+						{{filter.name}}
+					</md-tooltip>
+					<i class="material-icons">{{filter.class}}</i>
+				</md-button>
+			</div>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+</div>

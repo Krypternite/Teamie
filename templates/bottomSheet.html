@@ -1,0 +1,6 @@
+<md-bottom-sheet class="md-grid">
+	<md-subheader>Share</md-subheader>
+	<md-button ng-repeat="item in items" class="md-grid-item-content" ng-class="item.class" ng-click="listItemClick($index)" style="padding: 10px;">
+		<i class="material-icons">{{item.icon}}</i>
+	</md-button>
+</md-bottom-sheet>
