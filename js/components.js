@@ -7,7 +7,7 @@ angular.module('teamieApp')
 			creator: '='
 		},
 		controller: function ($mdMedia, $scope) {
-			console.log($mdMedia);
+			
 		}
 	})
 	.component('mainToolbar', {
