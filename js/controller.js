@@ -1,57 +1,12 @@
 angular.module('teamieApp.controllers', [])
 	.controller('sidemenuController', function ($scope, $mdSidenav, userFactory) {
 
-		var sideMenuConfig = {};
-		$scope.sideMenuScope = {
-			dateFilter: {
-				startDate: '',
-				endDate: '',
-				state: false
-			},
-			filters: userFactory.getFilters(),
-			sortData: {
-				value: '',
-				ascending: true
-			},
-			sortCards: function (value) {
-				if (this.sortData.value === value) {
-					this.sortData.value = "-" + value;
-					this.sortData.ascending = false;
-				} else {
-					this.sortData.ascending = true;
-					this.sortData.value = value;
-				}
-			},
-			clearDateFilter: function () {
-				this.dateFilter = {
-					startDate: '',
-					endDate: '',
-					state: false
-				};
-			},
-			clearFilters: function () {
-
-				$timeout(function () {
-
-					$scope.HMScopeData.sortData = {
-						value: '',
-						ascending: true
-					};
-					$scope.HMScopeData.clearDateFilter();
-					$scope.HMScopeData.loading = false;
-				}, 500);
-
-
-			},
-
-		};
-
 
 		$scope.openLeftMenu = function () {
 			$mdSidenav('left').toggle();
 		};
 	})
-	.controller('homeController', function ($scope, userFactory, $timeout, $mdDialog, $mdBottomSheet, $mdSidenav, $mdToast) {
+	.controller('homeController', function ($scope, userFactory, $timeout, $mdDialog, $mdBottomSheet, $mdSidenav, $mdToast, hotkeys) {
 		var HMConfigData = {
 			getFollowers: function () {
 				$scope.HMScopeData.followersList = angular.copy(userFactory.getUsers());
@@ -96,30 +51,83 @@ angular.module('teamieApp.controllers', [])
 						$mdDialog.hide($scope.dateFilter);
 				};
 			},
-			BottomSheetController: function ($scope, $mdBottomSheet) {
-				$scope.items = [
-					{
-						icon: 'accessible',
-						class: 'md-primary md-hue-2'
-			},
-					{
-						icon: 'face',
-						class: 'md-warn md-hue-2'
-			},
-					{
-						icon: 'favorite',
-						class: 'md-primary'
-			},
-					{
-						icon: 'delete',
-						class: 'md-primary'
+			addHotKeys: function () {
+				hotkeys.add({
+					combo: 'space+t',
+					description: 'For sorting the cards based on Total Score',
+					callback: function () {
+						$scope.HMScopeData.sortCards({
+							name: 'Total Score',
+							value: 'twubric.total'
+						})
+					}
+				});
+
+				hotkeys.add({
+					combo: 'space+i',
+					description: 'For sorting the cards based on Influence',
+					callback: function () {
+						$scope.HMScopeData.sortCards({
+							name: 'Influence',
+							value: 'twubric.influence'
+						})
+					}
+				});
+
+				hotkeys.add({
+					combo: 'space+f',
+					description: 'For sorting the cards based on Friends',
+					callback: function () {
+						$scope.HMScopeData.sortCards({
+							name: 'Friends',
+							value: 'twubric.friends'
+						})
+					}
+				});
+
+				hotkeys.add({
+					combo: 'space+c',
+					description: 'For sorting the cards based on Chirpiness',
+					callback: function () {
+						$scope.HMScopeData.sortCards({
+							name: 'Chirpiness',
+							value: 'twubric.chirpiness'
+						})
+					}
+				});
+
+
+				hotkeys.add({
+					combo: 'space+j',
+					description: 'For opening the date selector popup',
+					callback: function () {
+						$scope.HMScopeData.showDateSelector();
+					}
+				});
+
+
+
+				hotkeys.add({
+					combo: 'space+r',
+					description: 'For Re-setting the filters',
+					callback: function () {
+						$scope.HMScopeData.clearFilters();
+					}
+				});
+
+
+				hotkeys.add({
+					combo: 'space+d',
+					description: 'For Re-setting the filters',
+					callback: function () {
+						$('#btn_del').focus().val();
+					}
+				});
+
+
+
 			}
-          ];
-				$scope.listItemClick = function ($index) {
-					var clickedItem = $scope.items[$index];
-					$mdBottomSheet.hide(clickedItem);
-				};
-			}
+
 		};
 
 
@@ -198,29 +206,11 @@ angular.module('teamieApp.controllers', [])
 							var sD = Date.parse(dateFilter.startDate);
 							var eD = Date.parse(dateFilter.endDate);
 
-							/*for (var i = 0; i < $scope.HMScopeData.followersList.length; i++) {
-								var join_date = $scope.HMScopeData.followersList[i].join_date;
-
-								if (sDate < join_date && join_date < eDate) {
-									newFilteredUsers.push(users[i]);
-								}
-							}
-							
-							
-*/
-
 							$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
 							$scope.HMScopeData.dateFilter.state = true;
 							$scope.HMScopeData.sortData.value = 'twubric.join_date';
 							$scope.HMScopeData.sortData.ascending = 'true';
-							/*$scope.HMScopeData.loading = true;
-							$timeout(function () {
-								$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
-								$scope.HMScopeData.dateFilter.state = true;
-								$scope.HMScopeData.sortData.value = 'twubric.join_date';
-								$scope.HMScopeData.sortData.ascending = 'true';
-								$scope.HMScopeData.loading = false;
-							}, 200);*/
+
 
 
 						}
@@ -255,24 +245,14 @@ angular.module('teamieApp.controllers', [])
 		};
 		$timeout(function () {
 			HMConfigData.getFollowers();
+			HMConfigData.addHotKeys();
 			$scope.HMScopeData.loading = false;
-		}, 200);
+
+		}, 2000);
 
 
 
-
-		$scope.showListBottomSheet = function ($event) {
-			$mdBottomSheet.show({
-				templateUrl: 'templates/bottomSheet.html',
-				controller: HMConfigData.BottomSheetController,
-				targetEvent: $event
-			}).then(function (clickedItem) {
-				//$scope.alert = clickedItem.name + ' clicked!';
-			});
-		};
 
 		$scope.isOpen = false;
 		$scope.tooltipVisible = $scope.isOpen;
 	})
-
-	.controller('RightMenuController', function () {})

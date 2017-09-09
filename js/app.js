@@ -1,48 +1,12 @@
 /*APP CONFIG*/
 
 
-var app = angular.module('teamieApp', ['ngMaterial', "ui.router", 'teamieApp.controllers', 'teamieApp.services'])
-app.run(function ($rootScope, $state, $rootScope) {
+var app = angular.module('teamieApp', ['ngMaterial', "ui.router", "cfp.hotkeys", 'teamieApp.controllers', 'teamieApp.services', 'teamieApp.components'])
 
-	/**BROADCAST CATCHER TO HANDLE INIT PROBLEMS*/
-	/* $rootScope.$on('INIT', function (event, initType) {
-     if (initType.type === 'reinit')
-         $state.go("app.init", {
-             type: 're'
-         });
-     else
-         $state.go("app.init");
- })*/
-	/*CODE RUN TO INIT THE DB WHENEVER FIRST RUN*/
-	/* try {
-	     issueFactory.openDatabase().then(function () {
-	         issueFactory.setupIndexedDb(setupJSON).then(function (data) {
-	             console.log("SETUP", data);
-	             appRun = true;
-	             $state.go('app.issues')
-	         }, function (error) {
-	             console.log(error);
-	         })
-	     }, function (err) {
-	         console.log(err);
-	     });
-	 } catch (exception) {
-	     alert("The Database could not be initialized.");
-	 }*/
-});
-/**DIRECTIVE TO CATCH ENTER BUTTON PRESS*/
-app.directive('ngEnter', function () {
-	return function (scope, element, attrs) {
-		element.bind("keydown keypress", function (event) {
-			if (event.which === 13) {
-				scope.$apply(function () {
-					scope.$eval(attrs.ngEnter);
-				});
-				event.preventDefault();
-			}
-		});
-	};
-});
+/*APP RUN FUNCTION*/
+app.run(function ($rootScope, $state, $rootScope) {});
+/**DIRECTIVE FOR MASONRY BRICKS ANIMATIONS BUTTON PRESS*/
+
 app.directive("masonry", function () {
 	var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
 	return {
@@ -88,7 +52,7 @@ app.directive("masonry", function () {
 								// Wait inside directives to render
 								setTimeout(function () {
 									element.masonry("reload");
-								});
+								}, 20);
 							});
 						});
 					}
@@ -96,8 +60,11 @@ app.directive("masonry", function () {
 			};
 		}
 	};
-})
-app.config(function ($stateProvider, $urlRouterProvider) {
+});
+
+/*CONFIG*/
+app.config(function ($stateProvider, $urlRouterProvider, hotkeysProvider) {
+	hotkeysProvider.includeCheatSheet = true;
 	/**APP STATES*/
 	$stateProvider
 		.state('app', {
@@ -109,50 +76,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/home.html',
 			controller: 'homeController'
 		})
-	/*.state('app.init', {
-	    url: '/Init/:type',
-	    templateUrl: "templates/init.html",
-	    controller: 'initCtrl'
-
-	})
-	.state('app.issues', {
-	    url: '/Issues',
-	    templateUrl: "templates/issue-list.html",
-	    controller: 'issueListCtrl'
-
-	})
-	.state('app.newIssue', {
-	    url: '/NewIssue',
-	    templateUrl: "templates/issue-new.html",
-	    controller: 'newIssueCtrl'
-
-
-	}).state('app.issueDetails', {
-	    url: '/IssueDetails/:SR',
-	    templateUrl: "templates/issue-detail.html",
-	    controller: 'issueDetailCtrl'
-
-	})*/
 	$urlRouterProvider.otherwise('app/home');
-
-	/*$routeProvider
-	.state("/", {
-	    templateUrl: "templates/issue-list.html",
-	    controller: 'issueListCtrl'
-	})
-	.state("/newIssue", {
-	    templateUrl: "templates/issue-new.html",
-	    controller: 'newIssueCtrl'
-	})
-	.state("/issueDetail:SR", {
-	    templateUrl: "templates/issue-detail.html",
-	    controller: 'issueDetailCtrl'
-	})
-	.otherwise({
-	    templateUrl: "templates/issue-list.html",
-	    controller: 'issueListCtrl'
-	});*/
 });
+/*CUSTOM FILTER FOR FILTERING FOLLOWERS ON JOINING DATES*/
 app.filter("joinDateFilter", function () {
 	return function (items, from, to) {
 		var df = Date.parse(from);
