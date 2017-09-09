@@ -3,7 +3,7 @@
 <head>
 	<title>Teamie</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!--	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
@@ -31,28 +31,27 @@
 
 <body ng-app="teamieApp" ng-cloak layout="column">
 
-	<md-toolbar ng-controller="sidemenuController as ctrl" style="background: #424242">
+	<md-toolbar ng-controller="sidemenuController" style="background: #424242">
 
 
 		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" ng-click="openLeftMenu() ">
+			<md-button hide-gt-sm class="md-icon-button" ng-click="openLeftMenu() ">
 				<md-icon class="material-icons" aria-label="Menu">menu</md-icon>
 			</md-button>
 			<h2 class="md-flex" hide-sm hide-xs flex><img src=" img/logo.webp " width="120 "></h2>
 			<h1 flex class="app-title">
 				<span>:twubric</span>
 			</h1>
-			<md-button class="md-button">
+			<md-button class="md-icon-button">
 				<md-icon class="material-icons" aria-label="Menu">settings</md-icon>
-				Settings
 			</md-button>
 		</div>
 
 
 	</md-toolbar>
 
-	<div id="sideNavContainer " layout="row " flex class="container " ng-cloak>
-		<md-sidenav flex layout="column " md-is-locked-open="$mdMedia( 'min-width: 1000px') " md-component-id="left " class="md-sidenav-left md-whiteframe-1dp ">
+	<div ng-controller="sidemenuController" id="sideNavContainer " layout="row " flex class="container " ng-cloak>
+		<md-sidenav flex layout="column " md-is-locked-open="$mdMedia( 'min-width: 960px') " md-component-id="left " class="md-sidenav-left md-whiteframe-1dp " style="max-width:280px;">
 
 			<md-list style="margin-top:-20px; " layout="column " flex>
 				<section class="zig-cont " layout-align="start center ">
@@ -92,6 +91,44 @@
 
 
 		</md-sidenav>
+
+		<!--
+<md-sidenav flex layout="column " md-component-id="right " class="md-sidenav-right md-whiteframe-1dp " style="max-width:280px;">
+
+	<md-list style="margin-top:20px;" flex>
+		<md-list-item layout="row " layout-align="center end " flex>
+			<h1 class="md-title" lyout="row" layout-align="center center">Filters</h1>
+		</md-list-item>
+
+
+		<md-list-item layout="row " layout-align="start center" ng-repeat="filter in sideMenuScope.filters" flex>
+			<md-button class="md-button filter md-accent" flex ng-click="sideMenuScope.sortCards(filter.value)">
+				<span>{{filter.name}}</span>
+				<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+			</md-button>
+		</md-list-item>
+
+
+		<md-list-item layout="row " layout-align="start center ">
+			<md-button class="md-button filter md-accent" flex>
+				<span>Clear Date</span>
+				<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+			</md-button>
+		</md-list-item>
+
+		<md-list-item layout="row " layout-align="start center ">
+			<md-button class="md-button filter md-accent" flex>
+				<span>Reset Filters</span>
+				<md-icon class="material-icons " aria-label="Menu " style="font-size: medium;line-height: 24px;">clear</md-icon>
+			</md-button>
+		</md-list-item>
+
+
+
+	</md-list>
+
+
+</md-sidenav>-->
 
 		<md-content flex ui-view>
 		</md-content>
