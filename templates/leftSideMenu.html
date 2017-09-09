@@ -1,0 +1,35 @@
+<md-sidenav flex layout="column" md-is-locked-open="$mdMedia('min-width: 960px')" md-component-id="left" class="md-sidenav-left md-whiteframe-1dp " style="max-width:280px;">
+
+	<md-list style="margin-top:-20px; " layout="column" flex>
+		<section class="zig-cont " layout-align="start center ">
+			<md-list-item layout-align=" center ">
+				<img src="http://farm8.staticflickr.com/7382/8907351301_bd7460cffb.jpg " class="avatar-profile md-whiteframe-4dp ">
+
+			</md-list-item>
+			<md-list-item layout-align="center " style="margin-top:-20px; ">
+				<span class="md-title ">{{$ctrl.user}}</span>
+			</md-list-item>
+		</section>
+		<section flex class="dotted ">
+			<md-list-item layout="row " layout-align="center end ">
+				<span flex="20 " style="text-align:left ">Following</span>
+				<span>20</span>
+			</md-list-item>
+			<md-list-item layout="row " layout-align="center end ">
+				<span flex="20 " style="text-align:left ">Followers</span>
+				<span>50</span>
+			</md-list-item>
+			<md-list-item layout="row " layout-align="center end ">
+				<span flex="20 " style="text-align:left ">Tweets</span>
+				<span>500</span>
+			</md-list-item>
+			<md-list-item layout="row " layout-align="center end ">
+				<span flex="20 " style="text-align:left ">Retweets</span>
+				<span>200</span>
+			</md-list-item>
+		</section>
+		<section layout="column ">
+			<md-list-item layout-align="center end ">&copy; Created By : {{$ctrl.creator}}</md-list-item>
+		</section>
+	</md-list>
+</md-sidenav>

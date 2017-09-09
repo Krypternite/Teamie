@@ -1,0 +1,63 @@
+<div ng-show="HMScopeData.loading" layout="row" layout-sm="row" layout-align="space-around" class="follower-container">
+	<md-progress-circular></md-progress-circular>
+</div>
+
+<div ng-show="!HMScopeData.followersList.length && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
+	<h1>No Followers To Show.</h1>
+</div>
+
+<ul ng-show=" HMScopeData.followersList.length > 0 &&!HMScopeData.loading " class="grid follower-container" masonry="true" flex>
+	<li ng-repeat="item in filteredList = (HMScopeData.followersList | orderBy: [HMScopeData.sortData.value,'uid'] | joinDateFilter :HMScopeData.dateFilter.startDate:HMScopeData.dateFilter.endDate)">
+		<div class="twubric-card">
+			<div class="twubric-card-header">
+				<img class="avatar" ng-src="{{item.image}}" />
+				<div class="header-text">
+					<div>{{item.fullname}}</div>
+					<div class="subdued">@{{item.username}}</div>
+				</div>
+			</div>
+			<div class="twubric-card-content">
+				<div class="total-score-highlight">
+					<span>Total Score </span>
+					<span class="float-right">{{item.twubric.total}}</span>
+				</div>
+				<hr>
+				<table style="width: 100%; padding-top:10px">
+					<tr>
+						<td width="50%"> <span>Chirpiness</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"> <span class="float-right">{{item.twubric.chirpiness}}</span></td>
+					</tr>
+					<tr>
+						<td width="50%"> <span>Friends</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"> <span class="float-right">{{item.twubric.friends}}</span></td>
+					</tr>
+					<tr>
+						<td width="50%"> <span>Influence</span></td>
+						<td width="20%"> <span class="leader"></span></td>
+						<td width="40%"> <span class="float-right">{{item.twubric.influence}}</span></td>
+					</tr>
+				</table>
+
+
+			</div>
+			<hr>
+			<div class="twubric-card-footer">
+				<span>
+					<md-icon class="material-icons">perm_contact_calendar</md-icon>
+					<span>{{item.join_date*1000 | date:'MMM dd,yyyy'}}</span>
+				</span>
+				<span class="float-right">
+					<a href="#" id="btn_del" ng-click="HMScopeData.removerUser(item.uid)" > 
+						<md-icon class="material-icons" aria-label="Delete">delete</md-icon>
+					</a>
+				</span>
+			</div>
+		</div>
+	</li>
+</ul>
+
+<div ng-show="filteredList.length === 0 && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
+	<h1>No Matching Results for this criteria.</h1>
+</div>

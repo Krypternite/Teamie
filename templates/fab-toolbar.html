@@ -1,0 +1,19 @@
+<div hide-gt-sm class="lock-size" layout="row" layout-align="center center" ng-cloak>
+	<md-fab-speed-dial md-open="isOpen" md-direction="up" class="md-scale md-fab-bottom-right fixed">
+		<md-fab-trigger>
+			<md-button aria-label="menu" class="md-fab md-primary" style="font-size:10px">
+				Filters
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+			<div ng-repeat="filter in HMScopeData.filters">
+				<md-button aria-label="{{filter.name}}" class="md-fab md-raised md-mini" ng-click="HMScopeData.sortCards(filter)">
+					<md-tooltip md-direction="left" md-visible="isOpen" md-autohide="false" class="fab-tooltip">
+						{{filter.name}}
+					</md-tooltip>
+					<i class="material-icons">{{filter.class}}</i>
+				</md-button>
+			</div>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+</div>
