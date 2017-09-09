@@ -6,6 +6,18 @@
 		padding: 0px;
 	}
 	
+	.float-right {
+		float: right;
+	}
+	
+	.float-left {
+		float: left;
+	}
+	
+	.fixed {
+		position: fixed !important;
+	}
+	
 	.avatar {
 		position: relative;
 		width: 128px;
@@ -131,9 +143,32 @@ margin: 0.5em 0 0 0;
 	.masonry,
 	.masonry li {
 		/* apply before masonry add class */
-		position: absolute;
+		position: relative;
 		/* important to add it before enter animation start */
-		-webkit-transition-duration: .5s;
+		-webkit-transition-duration: .7s;
+		transition-duration: .7s;
+		-webkit-transition-property: all;
+		transition-property: all;
+	}
+	
+	.masonry .masonry-enter {
+		/* limit animated properties for entering elements */
+		-webkit-transition-property: -webkit-transform, opacity;
+		transition-property: transform, opacity;
+	}
+	
+	.masonry-enter,
+	.masonry-leave.masonry-leave-active {
+		opacity: 0;
+		-webkit-transform: scale(0.1);
+		transform: scale(0.1);
+	}
+	
+	.masonry-leave,
+	.masonry-enter.masonry-enter-active {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 	
 	md-card.twubric-cards {
@@ -196,6 +231,13 @@ margin: 0.5em 0 0 0;
 		padding: 10px;
 	}
 	
+	.twubric-card-content .total-score-highlight {
+		padding: 10px 10px;
+		font-weight: bolder;
+		border-radius: 20px;
+		background: lightgrey
+	}
+	
 	.twubric-card-content>div+div {
 		margin: 5px 0
 	}
@@ -242,4 +284,19 @@ margin: 0.5em 0 0 0;
 	.md-toast-content {
 		background-color: #39d888 !important;
 		color: rgb(250, 250, 250);
+	}
+	
+	.filter-clear-icon {
+		font-size: medium !important;
+		line-height: 24px !important;
+	}
+	
+	.follower-container {
+		margin-top: 80px;
+	}
+	
+	.fab-tooltip {
+		padding: 4px !important;
+		margin: 0 -28px !important;
+		font-size: 11px !important;
 	}
