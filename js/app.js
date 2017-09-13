@@ -1,12 +1,16 @@
 /*APP CONFIG*/
 
 
-var app = angular.module('teamieApp', ['ngMaterial', "ui.router", "cfp.hotkeys", 'teamieApp.controllers', 'teamieApp.services', 'teamieApp.components'])
+var app = angular.module('teamieApp', ['ngMaterial', 
+                                        "ui.router", 
+                                        "cfp.hotkeys", 
+                                        'teamieApp.controllers',
+                                        'teamieApp.services', 
+                                        'teamieApp.components',])
 
 /*APP RUN FUNCTION*/
 app.run(function ($rootScope, $state, $rootScope) {});
 /**DIRECTIVE FOR MASONRY BRICKS ANIMATIONS BUTTON PRESS*/
-
 app.directive("masonry", function () {
 	var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
 	return {
@@ -21,6 +25,7 @@ app.directive("masonry", function () {
 			var itemSelector = type + ":not([class$='-leave-active'])";
 
 			return function (scope, element, attrs) {
+
 				var options = angular.extend({
 					itemSelector: itemSelector
 				}, scope.$eval(attrs.masonry));
@@ -47,7 +52,7 @@ app.directive("masonry", function () {
 					if (options.model) {
 						scope.$apply(function () {
 							scope.$watchCollection(options.model, function (_new, _old) {
-								if (_new == _old) return;
+								if (_new === _old) return;
 
 								// Wait inside directives to render
 								setTimeout(function () {
@@ -61,7 +66,6 @@ app.directive("masonry", function () {
 		}
 	};
 });
-
 /*CONFIG*/
 app.config(function ($stateProvider, $urlRouterProvider, hotkeysProvider) {
 	hotkeysProvider.includeCheatSheet = true;
@@ -73,8 +77,7 @@ app.config(function ($stateProvider, $urlRouterProvider, hotkeysProvider) {
 		})
 		.state('app.home', {
 			url: '/home',
-			templateUrl: 'templates/home.html',
-			controller: 'homeController'
+			templateUrl: 'templates/home.html'
 		})
 	$urlRouterProvider.otherwise('app/home');
 });
@@ -95,6 +98,8 @@ app.filter("joinDateFilter", function () {
 			}
 
 			return arrayToReturn;
+		} else if (isNaN(df) || isNan(dt)) {
+			return items;
 		} else {
 			return items;
 		}

@@ -132,7 +132,8 @@ angular.module('teamieApp.services', [])
 				"join_date": 1228953600
   }
 ];
-		var filterList = [{
+		var filterList = [
+			{
 				'name': 'Twubric Score',
 				'value': 'twubric.total',
 				'class': 'poll',
