@@ -1,12 +1,19 @@
+<!--filter bars-->
+<md-toolbar class="fixed toolbar-filters" layout="row">
+	<ng-include src="'templates/toolbar.html'" style="width: 100%"></ng-include>
+</md-toolbar>
+
+<!--progress bar-->
 <div ng-show="HMScopeData.loading" layout="row" layout-sm="row" layout-align="space-around" class="follower-container">
 	<md-progress-circular></md-progress-circular>
 </div>
-
-<div ng-show="!HMScopeData.followersList.length && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
+<!--Message-->
+<div ng-show="!HMScopeData.followersList.length && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container help-text">
 	<h1>No Followers To Show.</h1>
 </div>
-
-<ul ng-show=" HMScopeData.followersList.length > 0 &&!HMScopeData.loading " class="grid follower-container" masonry="true" flex>
+<!--masonry cards-->
+<ul ng-show="((HMScopeData.followersList.length > 0) && (HMScopeData.loading === false) && (filteredList.length !=0) )" class="grid 
+follower-container" masonry="true" flex layout="row" layout-align="center center">
 	<li ng-repeat="item in filteredList = (HMScopeData.followersList | orderBy: [HMScopeData.sortData.value,'uid'] | joinDateFilter :HMScopeData.dateFilter.startDate:HMScopeData.dateFilter.endDate)">
 		<div class="twubric-card">
 			<div class="twubric-card-header">
@@ -42,22 +49,25 @@
 
 
 			</div>
-			<hr>
+			<hr class="custom-hr">
 			<div class="twubric-card-footer">
 				<span>
-					<md-icon class="material-icons">perm_contact_calendar</md-icon>
+					<md-icon class="material-icons footer-btn">perm_contact_calendar</md-icon>
 					<span>{{item.join_date*1000 | date:'MMM dd,yyyy'}}</span>
 				</span>
 				<span class="float-right">
 					<a href="#" id="btn_del" ng-click="HMScopeData.removerUser(item.uid)" > 
-						<md-icon class="material-icons" aria-label="Delete">delete</md-icon>
+						<md-icon class="material-icons footer-btn" aria-label="Delete">delete</md-icon>
 					</a>
 				</span>
 			</div>
 		</div>
 	</li>
-</ul>
 
-<div ng-show="filteredList.length === 0 && HMScopeData.followerList.length > 0 && !HMScopeData.loading" layout="row" layout-align="center center" class="follower-container">
+</ul>
+<div ng-show="filteredList.length === 0 && HMScopeData.followersList.length > 0 && !HMScopeData.loading" 
+     layout="row" layout-align="center center" class="follower-container help-text">
 	<h1>No Matching Results for this criteria.</h1>
 </div>
+<!--FAB toolbar -- visible on smaller screens -->
+<ng-include src="'templates/fab-toolbar.html'"></ng-include>

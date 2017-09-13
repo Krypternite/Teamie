@@ -1,4 +1,4 @@
-<div class="md-toolbar-tools" hide-sm hide-xs>
+<div class="md-toolbar-tools" hide-sm hide-xs layout="column" layout-align="center center">
 	<span class="md-caption">Sort By:</span>
 	<md-button ng-repeat="filter in HMScopeData.filters" ng-click="HMScopeData.sortCards(filter)" class="md-button filter" ng-class="{'selected':(HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  )}">
 		<span ng-show="HMScopeData.sortData.value === filter.value ||HMScopeData.sortData.value === '-'+filter.value  ">
@@ -20,16 +20,16 @@
 	</md-button>
 </div>
 
-<div class="md-toolbar-tools" hide-gt-sm layout="column" layout="center center">
-	<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button filter" flex>
+<div class="md-toolbar-tools" hide-gt-sm layout="column" layout-align="center center">
+	<md-button ng-click="HMScopeData.showDateSelector($event)" class="md-button filter">
 		<span>Joining Date</span>
 	</md-button>
-	<md-button ng-click="HMScopeData.clearDateFilter()" ng-if="HMScopeData.dateFilter.state" class="md-button filter" flex>
+	<md-button ng-click="HMScopeData.clearDateFilter()" ng-if="HMScopeData.dateFilter.state" class="md-button filter">
 
 		<span>Clear Date</span>
 		<md-icon class="material-icons filter-clear-icon" aria-label="Menu ">clear</md-icon>
 	</md-button>
-	<md-button ng-click="HMScopeData.clearFilters()" class="md-button filter" flex>
+	<md-button ng-click="HMScopeData.clearFilters()" class="md-button filter">
 		<span>Reset Filters</span>
 		<md-icon class="material-icons filter-clear-icon" aria-label="Menu ">clear</md-icon>
 	</md-button>
