@@ -6,8 +6,8 @@
 			</md-button>
 		</md-fab-trigger>
 		<md-fab-actions>
-			<div ng-repeat="filter in HMScopeData.filters">
-				<md-button aria-label="{{filter.name}}" class="md-fab md-raised md-mini" ng-click="HMScopeData.sortCards(filter)">
+			<div class="fab-filter" ng-repeat="filter in HMScopeData.filters">
+				<md-button ng-disabled="filteredList.length === 0 || HMScopeData.followerList.length===0" aria-label="{{filter.name}}" class="md-fab md-raised md-mini" ng-click="HMScopeData.sortCards(filter)">
 					<md-tooltip md-direction="left" md-visible="isOpen" md-autohide="false" class="fab-tooltip">
 						{{filter.name}}
 					</md-tooltip>
