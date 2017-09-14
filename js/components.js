@@ -1,15 +1,17 @@
 angular.module('teamieApp.components', [])
-//angular.module('teamieApp')
+	/*LEFT MENU COMPONET*/
 	.component('leftSide', {
 		templateUrl: 'templates/leftSideMenu.html',
 		bindings: {
 			user: '=',
-			creator: '='
+			creator: '=',
+			username: '='
 		},
 		controller: function ($mdMedia, $scope) {
 
 		}
 	})
+	/*HEADER BAR COMPONENT*/
 	.component('headerBar', {
 		templateUrl: 'templates/headerBar.html',
 		controller: function ($mdSidenav, $scope) {
@@ -18,6 +20,7 @@ angular.module('teamieApp.components', [])
 			};
 		}
 	})
+	/*FOLLOWER GRID COMPONENT*/
 	.component('followerGrid', {
 		templateUrl: 'templates/masonry-cards.html',
 		controller: function ($scope, userFactory, $timeout, $mdDialog, $mdSidenav, $mdToast, hotkeys) {
@@ -81,15 +84,16 @@ angular.module('teamieApp.components', [])
 					});
 
 					hotkeys.add({
-						combo: 'space+i',
-						description: 'For sorting the cards based on Influence',
+						combo: 'space+c',
+						description: 'For sorting the cards based on Chirpiness',
 						callback: function () {
 							$scope.HMScopeData.sortCards({
-								name: 'Influence',
-								value: 'twubric.influence'
+								name: 'Chirpiness',
+								value: 'twubric.chirpiness'
 							})
 						}
 					});
+
 
 					hotkeys.add({
 						combo: 'space+f',
@@ -101,17 +105,17 @@ angular.module('teamieApp.components', [])
 							})
 						}
 					});
-
 					hotkeys.add({
-						combo: 'space+c',
-						description: 'For sorting the cards based on Chirpiness',
+						combo: 'space+i',
+						description: 'For sorting the cards based on Influence',
 						callback: function () {
 							$scope.HMScopeData.sortCards({
-								name: 'Chirpiness',
-								value: 'twubric.chirpiness'
+								name: 'Influence',
+								value: 'twubric.influence'
 							})
 						}
 					});
+
 
 
 					hotkeys.add({
@@ -135,7 +139,7 @@ angular.module('teamieApp.components', [])
 
 					hotkeys.add({
 						combo: 'space+d',
-						description: 'For Re-setting the filters',
+						description: 'For setting focus on the delete button of the first card.',
 						callback: function () {
 							$('#btn_del').focus().val();
 						}
@@ -150,7 +154,7 @@ angular.module('teamieApp.components', [])
 			/*SCOPE OBJECT*/
 			$scope.HMScopeData = {
 				//flag for FAB toolbar open state
-				isFABOpen : false,
+				isFABOpen: false,
 				//flag for loading state
 				loading: true,
 				//array to hold the list of followers
@@ -177,10 +181,10 @@ angular.module('teamieApp.components', [])
 					}
 
 					$mdToast.show(
-							$mdToast.simple()
-							.textContent("Filter set as  : " + filter.name + " " + ($scope.HMScopeData.sortData.ascending === true ? 'Ascending' : 'Descending')).position('top right').toastClass('md-primary').capsule('true')
-							.hideDelay(2000)
-							);
+						$mdToast.simple()
+						.textContent("Filter set as  : " + filter.name + " " + ($scope.HMScopeData.sortData.ascending === true ? 'Ascending' : 'Descending')).position('top right').toastClass('md-primary').capsule('true')
+						.hideDelay(2000)
+					);
 
 				},
 				// array of filter names and their values
@@ -212,36 +216,36 @@ angular.module('teamieApp.components', [])
 				//fn - that shows the selection popup
 				showDateSelector: function (ev) {
 					$mdDialog.show({
-						controller: HMConfigData.DialogController,
-						templateUrl: 'templates/dateDialog.html',
-						parent: angular.element(document.body),
-						targetEvent: ev,
-						clickOutsideToClose: false,
-						fullscreen: true,
-						resolve: {
-							dateFilter: function () {
-								return $scope.HMScopeData.dateFilter
-							}
-						} // Only for -xs, -sm breakpoints.,
-
-					})
-							.then(function (dateFilter) {
-								//						scope.HMScopeData.loading = true;
-								if (!angular.isUndefined(dateFilter.startDate) && !angular.isUndefined(dateFilter.endDate)) {
-									let sD = Date.parse(dateFilter.startDate);
-									let eD = Date.parse(dateFilter.endDate);
-
-									$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
-									$scope.HMScopeData.dateFilter.state = true;
-									$scope.HMScopeData.sortData.value = 'twubric.join_date';
-									$scope.HMScopeData.sortData.ascending = 'true';
-
-
-
+							controller: HMConfigData.DialogController,
+							templateUrl: 'templates/dateDialog.html',
+							parent: angular.element(document.body),
+							targetEvent: ev,
+							clickOutsideToClose: false,
+							fullscreen: true,
+							resolve: {
+								dateFilter: function () {
+									return $scope.HMScopeData.dateFilter
 								}
-							}, function () {
-								$scope.status = 'You cancelled the dialog.';
-							});
+							} // Only for -xs, -sm breakpoints.,
+
+						})
+						.then(function (dateFilter) {
+							//						scope.HMScopeData.loading = true;
+							if (!angular.isUndefined(dateFilter.startDate) && !angular.isUndefined(dateFilter.endDate)) {
+								let sD = Date.parse(dateFilter.startDate);
+								let eD = Date.parse(dateFilter.endDate);
+
+								$scope.HMScopeData.dateFilter = angular.copy(dateFilter);
+								$scope.HMScopeData.dateFilter.state = true;
+								$scope.HMScopeData.sortData.value = 'twubric.join_date';
+								$scope.HMScopeData.sortData.ascending = 'true';
+
+
+
+							}
+						}, function () {
+							$scope.status = 'You cancelled the dialog.';
+						});
 
 
 				},
@@ -262,7 +266,7 @@ angular.module('teamieApp.components', [])
 
 
 			};
-			
+
 			$timeout(function () {
 				HMConfigData.getFollowers();
 				HMConfigData.addHotKeys();

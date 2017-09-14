@@ -139,20 +139,18 @@ angular.module('teamieApp.services', [])
 				'class': 'poll',
 			},
 			{
-				'name': 'Friends',
-				'value': 'twubric.friends',
-				'class': 'group_add'
-			},
-			{
-				'name': 'Influence',
-				'value': 'twubric.influence',
-				'class': 'people',
-			},
-			{
 				'name': 'Chirpiness',
 				'value': 'twubric.chirpiness',
 				'class': 'record_voice_over',
-			}];
+			}, {
+				'name': 'Friends',
+				'value': 'twubric.friends',
+				'class': 'group_add'
+			}, {
+				'name': 'Influence',
+				'value': 'twubric.influence',
+				'class': 'people',
+			}, ];
 		return {
 			getUsers: function () {
 				return userList;
